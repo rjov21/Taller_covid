@@ -132,3 +132,43 @@ data['Nombre departamento'].unique()
 #10 Ordene de mayor a menor por tipo de atención 
 data['Tipo de recuperación'].value_counts().head(10)
 
+
+
+#11 Liste de mayor a menor los 10 departamentos con mas casos de contagiados
+departamentos_afectados = data['Nombre departamento'].value_counts().head(10)
+
+
+# 12 Liste de mayor a menor los 10 departamentos con mas casos de fallecidos
+aux12 = data.loc[(data['Estado'] == 'Fallecido')]
+departamentos_mas_fallecidos = aux12['Nombre departamento'].value_counts().head(10)
+
+
+# 13 Liste de mayor a menor los 10 departamentos con mas casos de recuperados
+aux13 = data.loc[(data['Recuperado'] == 'Recuperado')]
+departamentos_mas_recuperados = aux13['Nombre departamento'].value_counts().head(10)
+
+
+# 14  Liste de mayor a menor los 10 municipios con mas casos de contagiados
+municipios_afectados = data['Nombre municipio'].value_counts().head(10)
+
+
+
+# 15 Liste de mayor a menor los 10 municipios con mas casos de fallecidos
+aux15 = data.loc[(data['Estado'] == 'Fallecido')]
+municipios_mas_fallecidos = aux12['Nombre municipio'].value_counts().head(10)
+
+
+# 16 . Liste de mayor a menor los 10 municipios con mas casos de recuperados
+aux16 = data.loc[(data['Recuperado'] == 'Recuperado')]
+departamentos_mas_recuperados = aux13['Nombre municipio'].value_counts().head(10)
+
+
+# 17 Liste agrupado por departamento y en orden de Mayor a menor las ciudades 
+#con mas casos de contagiados
+agrupado_departamentos_mas_contagiados = data.groupby(['Nombre departamento', 'Nombre municipio']).size().sort_values( ascending=False)
+
+
+# 18  Número de Mujeres y hombres contagiados por ciudad por departamento
+
+
+
