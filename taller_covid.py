@@ -45,7 +45,7 @@ data['Estado'].value_counts()
 
 # Normalizar la columna de Estado
 
-data.loc[data['Estado'] == 'leve'] = 'Leve'
+data.loc[data['Estado'] == 'leve', 'Estado'] = 'Leve'
 data.loc[data['Estado'] == 'LEVE'] = 'Leve'
 
 # Cuantas personas murieron por covid en Colombia
@@ -73,7 +73,7 @@ cantidad_muertes_mj_BQ = aux.shape[0]
 # Normalizar columna Estado
 
 data.loc[data['Estado'] == 'M'] = 'Moderado'
-data.loc[data['Sexo'] == 'F'] = 'Fallecido'
+data.loc[data['Sexo'] == 'Fallecido'] = 'F'
 
 
 
@@ -155,12 +155,12 @@ municipios_afectados = data['Nombre municipio'].value_counts().head(10)
 
 # 15 Liste de mayor a menor los 10 municipios con mas casos de fallecidos
 aux15 = data.loc[(data['Estado'] == 'Fallecido')]
-municipios_mas_fallecidos = aux12['Nombre municipio'].value_counts().head(10)
+municipios_mas_fallecidos = aux15['Nombre municipio'].value_counts().head(10)
 
 
 # 16 . Liste de mayor a menor los 10 municipios con mas casos de recuperados
 aux16 = data.loc[(data['Recuperado'] == 'Recuperado')]
-departamentos_mas_recuperados = aux13['Nombre municipio'].value_counts().head(10)
+departamentos_mas_recuperados = aux16['Nombre municipio'].value_counts().head(10)
 
 
 # 17 Liste agrupado por departamento y en orden de Mayor a menor las ciudades 
@@ -169,6 +169,28 @@ agrupado_departamentos_mas_contagiados = data.groupby(['Nombre departamento', 'N
 
 
 # 18  Número de Mujeres y hombres contagiados por ciudad por departamento
+cantidad_mujeres_hombres = data.groupby(['Nombre departamento', 'Nombre municipio', 'Sexo']).size()
+
+
+# 19 Liste el promedio de edad de contagiados por hombre y mujeres por ciudad por departamento
+edad_promedio = data.groupby(['Nombre departamento', 'Nombre municipio', 'Sexo',])['Edad'].describe()
+
+
+# 20 Liste de mayor a menor el número de contagiados por país de procedencia
 
 
 
+
+# 21 . Liste de mayor a menor las fechas donde se presentaron mas contagios
+listado_fechas = data['fecha reporte web'].value_counts().sort_values( ascending=False)
+
+
+#22 Diga cual es la tasa de mortalidad y recuperación que tiene toda Colombia
+numero_muertes = data.loc[(data['Estado'] == 'Fallecido')]
+cantidad_casos = data.shape[0]
+tasa_mortalidad = numero_muertes / cantidad_casos * 100
+
+
+numero_recuperados = data.loc[(data['Recuperado'] == 'Recuperado')]
+cantidad_casos_recuperados = data.shape[0]
+tasa_mortalidad = numero_recuperados / cantidad_casos_recuperados * 100
