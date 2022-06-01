@@ -186,11 +186,19 @@ listado_fechas = data['fecha reporte web'].value_counts().sort_values( ascending
 
 
 #22 Diga cual es la tasa de mortalidad y recuperación que tiene toda Colombia
-numero_muertes = data.loc[(data['Estado'] == 'Fallecido')]
+numero_muertes = data.loc[(data['Estado'] == 'Fallecido')].shape[0]
 cantidad_casos = data.shape[0]
 tasa_mortalidad = numero_muertes / cantidad_casos * 100
 
 
-numero_recuperados = data.loc[(data['Recuperado'] == 'Recuperado')]
+numero_recuperados = data.loc[(data['Recuperado'] == 'Recuperado')].shape[0]
 cantidad_casos_recuperados = data.shape[0]
-tasa_mortalidad = numero_recuperados / cantidad_casos_recuperados * 100
+tasa_recuperados = numero_recuperados / cantidad_casos_recuperados * 100
+
+
+# 23 Liste la tasa de mortalidad y recuperación que tiene cada departamento
+numero_muertes = data.loc[(data['Estado'] == 'Fallecido')].shape[0]
+cantidad_casos = data['Nombre departamento']
+tasa_mortalidad = numero_muertes / cantidad_casos * 100
+tasa_mortalidad_departamentos = [tasa_mortalidad]
+data['Tasa mortalidad departamentos'] = tasa_mortalidad_departamentos
